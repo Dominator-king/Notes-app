@@ -1,6 +1,6 @@
 # Contribution to a notes app
 
-[link]((https://notesapprayy.netlify.app)https://notesapprayy.netlify.app)
+[link](https://notesapprayy.netlify.app)
 
 - This was a premade note app with no functionality
 - I added the delete notes option
