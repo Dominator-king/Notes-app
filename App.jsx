@@ -7,6 +7,7 @@ import { notesCollection, db } from "./firebase";
 
 export default function App() {
   const [notes, setNotes] = React.useState([]);
+  const [noNotes, setNoNotes] = React.useState(false);
   const [currentNoteId, setCurrentNoteId] = React.useState("");
   const [tempNoteText, setTempNoteText] = React.useState("");
 
@@ -23,6 +24,7 @@ export default function App() {
       }));
       setNotes(notesArr);
     });
+
     return unsubscribe;
   }, []);
 
@@ -30,6 +32,10 @@ export default function App() {
     if (!currentNoteId) {
       setCurrentNoteId(notes[0]?.id);
     }
+    if (notes.length == 0) {
+      setNoNotes(true);
+    }
+    console.log(notes, noNotes);
   }, [notes]);
 
   React.useEffect(() => {
@@ -71,9 +77,9 @@ export default function App() {
     await deleteDoc(docRef);
   }
 
-  return (
+  return noNotes ? (
     <main>
-      {notes.length > 0 ? (
+      {notes.length > 0 && noNotes ? (
         <Split sizes={[30, 70]} direction="horizontal" className="split">
           <Sidebar
             notes={sortedNotes}
@@ -96,5 +102,7 @@ export default function App() {
         </div>
       )}
     </main>
+  ) : (
+    <h1>Loading</h1>
   );
 }
